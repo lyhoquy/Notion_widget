@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="style.css" />
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <h1 class="title">
+      <svg class="github-icon" viewBox="0 0 16 16">
+        <path d="M8 0C3.58 0 0 3.58 0 8...Z"></path>
+      </svg>
+      GitHub Activity Dashboard
+    </h1>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="theme-icon">🌙</span>
+      <span id="theme-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <!-- Heatmap -->
+    <div class="heatmap-section">
+      <h2 class="section-title">Contribution Heatmap</h2>
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        Generating contribution data...
+      </div>
+      <div id="heatmap-content" style="display: none">
+        <div class="heatmap-wrapper">
+          <div class="heatmap-container">
+            <div class="month-labels" id="monthLabels"></div>
+            <div style="display: flex">
+              <div class="day-labels">
+                <div class="day-label"></div>
+                <div class="day-label">Mon</div>
+                <div class="day-label"></div>
+                <div class="day-label">Wed</div>
+                <div class="day-label"></div>
+                <div class="day-label">Fri</div>
+                <div class="day-label"></div>
+              </div>
+              <div class="heatmap-grid" id="heatmapGrid"></div>
+            </div>
+          </div>
+        </div>
+        <div class="legend">
+          <span>Less</span>
+          <div class="legend-scale">
+            <div class="contribution-cell level-0"></div>
+            <div class="contribution-cell level-1"></div>
+            <div class="contribution-cell level-2"></div>
+            <div class="contribution-cell level-3"></div>
+            <div class="contribution-cell level-4"></div>
+          </div>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-panel">
+      <h2 class="section-title">Activity Summary</h2>
+      <div id="stats-content">
+        <div class="stat-item">
+          <span class="stat-label">Total Contributions</span
+          ><span class="stat-value" id="totalContributions">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Current Streak</span
+          ><span class="stat-value" id="currentStreak">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Longest Streak</span
+          ><span class="stat-value" id="longestStreak">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">This Week</span
+          ><span class="stat-value" id="thisWeek">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Best Day</span
+          ><span class="stat-value" id="bestDay">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-container">
+    <h2 class="section-title">Activity Chart</h2>
+    <canvas id="activityChart" width="400" height="150"></canvas>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip"></div>
+
+<!-- JS -->
