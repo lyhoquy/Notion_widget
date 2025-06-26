@@ -1,6 +1,3 @@
-const GITHUB_USERNAME = ""; // ⚠️ GitHub username
-const GITHUB_TOKEN = ""; // ⚠️ GitHub Personal Access Token
-
 // === THEME TOGGLE ===
 function toggleTheme() {
   const body = document.body;
@@ -31,36 +28,13 @@ function initTheme() {
 
 // === FETCH REAL GITHUB DATA ===
 async function fetchGitHubContributions() {
-  const query = `
-    query {
-      user(login: "${GITHUB_USERNAME}") {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-            weeks {
-              contributionDays {
-                date
-                contributionCount
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-    },
-    body: JSON.stringify({ query }),
-  });
-
+  const username = "lyhoquy";
+  const response = await fetch(
+    `https://notion-widget-git-main-lyhoquys-projects.vercel.app/api/github?username=${username}`
+  );
   const result = await response.json();
 
-  if (!result.data) throw new Error("Invalid response from GitHub");
+  if (!result.data) throw new Error("Invalid response from API");
 
   const weeks =
     result.data.user.contributionsCollection.contributionCalendar.weeks;
