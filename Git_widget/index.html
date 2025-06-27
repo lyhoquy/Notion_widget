@@ -1,99 +1,87 @@
-<link rel="stylesheet" href="style.css" />
-
-<div class="container">
-  <!-- Header -->
-  <div class="header">
-    <h1 class="title">
-      <svg class="github-icon" viewBox="0 0 16 16">
-        <path d="M8 0C3.58 0 0 3.58 0 8...Z"></path>
-      </svg>
-      GitHub Activity Dashboard
-    </h1>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-icon">🌙</span>
-      <span id="theme-text">Dark Mode</span>
-    </button>
-  </div>
-
-  <!-- Dashboard -->
-  <div class="dashboard">
-    <!-- Heatmap -->
-    <div class="heatmap-section">
-      <h2 class="section-title">Contribution Heatmap</h2>
-      <div id="loading" class="loading">
-        <div class="spinner"></div>
-        Generating contribution data...
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Activity Dashboard</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header nâng cấp -->
+      <div class="header">
+        <div class="header-content">
+          <h1 class="title">
+            <svg class="github-icon" viewBox="0 0 16 16">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+            GitHub Activity Dashboard
+          </h1>
+          <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">Dark Mode</span>
+          </button>
+        </div>
       </div>
-      <div id="heatmap-content" style="display: none">
-        <div class="heatmap-wrapper">
-          <div class="heatmap-container">
-            <div class="month-labels" id="monthLabels"></div>
-            <div style="display: flex">
-              <div class="day-labels">
-                <div class="day-label"></div>
-                <div class="day-label">Mon</div>
-                <div class="day-label"></div>
-                <div class="day-label">Wed</div>
-                <div class="day-label"></div>
-                <div class="day-label">Fri</div>
-                <div class="day-label"></div>
+
+      <!-- Dashboard -->
+      <div class="dashboard">
+        <!-- Heatmap -->
+        <div class="dashboard-item heatmap-section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24">
+              <path
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
+              />
+            </svg>
+            Contribution Heatmap
+          </h2>
+          <div id="loading" class="loading">
+            <div class="spinner"></div>
+            Generating contribution data...
+          </div>
+          <div id="heatmap-content" style="display: none">
+            <div class="heatmap-wrapper">
+              <div class="heatmap-container">
+                <div class="month-labels" id="monthLabels"></div>
+                <div style="display: flex">
+                  <div class="day-labels">
+                    <div class="day-label"></div>
+                    <div class="day-label">Mon</div>
+                    <div class="day-label"></div>
+                    <div class="day-label">Wed</div>
+                    <div class="day-label"></div>
+                    <div class="day-label">Fri</div>
+                    <div class="day-label"></div>
+                  </div>
+                  <div class="heatmap-grid" id="heatmapGrid"></div>
+                </div>
               </div>
-              <div class="heatmap-grid" id="heatmapGrid"></div>
+            </div>
+            <div class="legend">
+              <span>Less</span>
+              <div class="legend-scale">
+                <div class="contribution-cell level-0"></div>
+                <div class="contribution-cell level-1"></div>
+                <div class="contribution-cell level-2"></div>
+                <div class="contribution-cell level-3"></div>
+                <div class="contribution-cell level-4"></div>
+              </div>
+              <span>More</span>
             </div>
           </div>
         </div>
-        <div class="legend">
-          <span>Less</span>
-          <div class="legend-scale">
-            <div class="contribution-cell level-0"></div>
-            <div class="contribution-cell level-1"></div>
-            <div class="contribution-cell level-2"></div>
-            <div class="contribution-cell level-3"></div>
-            <div class="contribution-cell level-4"></div>
-          </div>
-          <span>More</span>
-        </div>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats-panel">
-      <h2 class="section-title">Activity Summary</h2>
-      <div id="stats-content">
-        <div class="stat-item">
-          <span class="stat-label">Total Contributions</span
-          ><span class="stat-value" id="totalContributions">-</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Current Streak</span
-          ><span class="stat-value" id="currentStreak">-</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Longest Streak</span
-          ><span class="stat-value" id="longestStreak">-</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">This Week</span
-          ><span class="stat-value" id="thisWeek">-</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Best Day</span
-          ><span class="stat-value" id="bestDay">-</span>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
 
-  <!-- Chart -->
-  <div class="chart-container">
-    <h2 class="section-title">Activity Chart</h2>
-    <canvas id="activityChart" width="400" height="150"></canvas>
-  </div>
-</div>
-
-<!-- Tooltip -->
-<div class="tooltip" id="tooltip"></div>
-
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
